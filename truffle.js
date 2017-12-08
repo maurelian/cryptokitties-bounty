@@ -19,6 +19,7 @@ module.exports = {
   },
   // https://truffle.readthedocs.io/en/beta/advanced/configuration/
   mocha: {
-    bail: true
+    reporter: 'eth-gas-reporter'
+    // bail: true
   }
 };

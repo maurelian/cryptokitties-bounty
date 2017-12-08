@@ -1,0 +1,203 @@
+$ npm test
+
+> cryptokitty@1.0.0 test /Users/primary/Projects/cryptokitties-bounty
+> truffle test
+
+Compiling ./contracts/Auction/ClockAuction.sol...
+Compiling ./contracts/Auction/ClockAuctionBase.sol...
+Compiling ./contracts/Auction/SaleClockAuction.sol...
+Compiling ./contracts/Auction/SiringClockAuction.sol...
+Compiling ./contracts/Debuggable.sol...
+Compiling ./contracts/ERC721Draft.sol...
+Compiling ./contracts/ExternalInterfaces/GeneScienceInterface.sol...
+Compiling ./contracts/KittyAccessControl.sol...
+Compiling ./contracts/KittyAuction.sol...
+Compiling ./contracts/KittyBase.sol...
+Compiling ./contracts/KittyBreeding.sol...
+Compiling ./contracts/KittyCore.sol...
+Compiling ./contracts/KittyCoreRinkeby.sol...
+Compiling ./contracts/KittyCoreTest.sol...
+Compiling ./contracts/KittyMinting.sol...
+Compiling ./contracts/KittyOwnership.sol...
+Compiling ./contracts/Migrations.sol...
+Compiling ./test/contracts/GeneScienceMock.sol...
+Compiling ./test/contracts/NonFungibleMock.sol...
+Compiling zeppelin-solidity/contracts/lifecycle/Pausable.sol...
+Compiling zeppelin-solidity/contracts/ownership/Ownable.sol...
+
+Compilation warnings encountered:
+
+zeppelin-solidity/contracts/ownership/Ownable.sol:17:3: Warning: No visibility specified. Defaulting to "public".
+  function Ownable() {
+  ^
+Spanning multiple lines.
+,zeppelin-solidity/contracts/ownership/Ownable.sol:35:3: Warning: No visibility specified. Defaulting to "public".
+  function transferOwnership(address newOwner) onlyOwner {
+  ^
+Spanning multiple lines.
+,zeppelin-solidity/contracts/lifecycle/Pausable.sol:37:3: Warning: No visibility specified. Defaulting to "public".
+  function pause() onlyOwner whenNotPaused returns (bool) {
+  ^
+Spanning multiple lines.
+,zeppelin-solidity/contracts/lifecycle/Pausable.sol:46:3: Warning: No visibility specified. Defaulting to "public".
+  function unpause() onlyOwner whenPaused returns (bool) {
+  ^
+Spanning multiple lines.
+
+
+
+  Contract: Clock Auction
+    Initial State
+      ✓ should start with owner and NFT address set
+    Create auction
+      ✓ should fail to create auction for NFT you don't own (6721975 gas)
+      ✓ should fail to create auction for duration too large (6766033 gas)
+      ✓ should fail to create auction for nonexistant NFT (6721975 gas)
+      ✓ should fail to create auction without first approving auction contract (6721975 gas)
+      ✓ should fail to create auction for NFT already on auction (6876081 gas)
+      ✓ should be able to create auction (154106 gas)
+    Bidding
+      ✓ should fail to bid with insufficient value (6721975 gas)
+      ✓ should fail to bid if auction has been concluded (6745758 gas)
+start
+95713087200000000101
+101
+0xf17f52151ebef6c7334fad080c5704d77216b732
+0xf17f52151ebef6c7334fad080c5704d77216b732
+      ✓ should be able to bid (28710 gas)
+      ✓ should be able to bid at endingPrice if auction has passed duration (28677 gas)
+      ✓ should fail to bid after someone else has bid (6750685 gas)
+      ✓ should be able to bid in middle of auction (28710 gas)
+      ✓ should trigger an event after successful bid (28593 gas)
+    Conclude auction
+      ✓ should fail to conclude if NFT not on auction
+      ✓ should fail to conclude auction if not seller
+      ✓ should be able to conclude auction (23783 gas)
+      ✓ should be able to conclude ongoing auction (23783 gas)
+      ✓ should trigger event after concluding auction (23783 gas)
+    Owner cut
+      ✓ should add owner's cut of sale to balance (182816 gas)
+    Cancel auctions while paused
+      ✓ should fail to cancel auction when not paused (6721975 gas)
+      ✓ should fail to cancel auction when not owner (6750321 gas)
+      ✓ should be able to cancel auction as owner when paused (52397 gas)
+      ✓ should be able to cancel auction as auction owner when paused (52129 gas)
+    Current price computation
+      - increasing price
+      - decreasing price
+      - fixed price
+      - down to zero
+      - up from zero
+      - always zero
+      - Big numbers
+
+  Contract: KittyCore
+    Initial state
+      ✓ should own contract
+    Kitten creation:
+      ✓ create a promotional kittens (7356135 gas)
+    NonFungible, EIP-721
+      ✓ create a few kittens (1127300 gas)
+      ✓ approve + transferFrom + ownerOf (101266 gas)
+      ✓ balanceOf
+      ✓ tokensOfOwnerByIndex
+      - tokenMetadata
+    Siring
+      ✓ create a few kittens (542762 gas)
+      ✓ kitten cant sire itself (6721975 gas)
+      ✓ siring is only allowed with due permissions (6822122 gas)
+      ✓ pregnant kitten cant sire (6766788 gas)
+      ✓ sire has cooldown after siring (13443950 gas)
+      ✓ allowed user cant re-use the same sire permission (6791997 gas)
+    Kitty Breeding:
+      ✓ create some kittens (412450 gas)
+      ✓ kitA gets pregnant from kitB (69972 gas)
+      ✓ tries and fails to get kitA pregnant again (6721975 gas)
+      ✓ wait kitA be ready to give birth (6721975 gas)
+      ✓ have kitA give birth to kitD (142987 gas)
+      ✓ kitD can breed right after being born
+      ✓ kitD can't breed with either parent, but can breed with kitC, who is unrelated (26957872 gas)
+      ✓ test that siblings cant breed (13799996 gas)
+      ✓ test breedWithAuto still retains the same requirements (13443950 gas)
+      ✓ make breedWithAuto happen and check event (6795073 gas)
+      ✓ test that anyone can give birth to a kitten (142987 gas)
+    Cooldowns progression
+      ✓ create some kittens (256328 gas)
+      ✓ Let them breed and give birth (6934934 gas)
+      ✓ KitA can breed again right away (6935034 gas)
+      ✓ KitB now will be the one pregnant (6935034 gas)
+      ✓ After reaching the limit it stops at max cooldown (2535204 gas)
+    Roles: CEO + CFO
+      ✓ COO try to appoint another COO, but cant (6721975 gas)
+      ✓ CEO can appoint a CFO (6766242 gas)
+      ✓ CEO can appoint another coo (29025 gas)
+      ✓ new coo can do things, old coo cant anymore (6869437 gas)
+      ✓ CEO can appoint another CEO (6750978 gas)
+      ✓ old CEO cant do anything since they were replaced (6750978 gas)
+      ✓ CFO can drain funds (53025 gas)
+    Contract Upgrade
+      ✓ user2 fails to pause contract - not coo (6721975 gas)
+      ✓ coo can pause the contract (28144 gas)
+      ✓ functions that alter state can't execute while paused (20165925 gas)
+      ✓ can read state of all kittens while paused
+      ✓ unpause (29445 gas)
+      ✓ kitten 1 give birth (142987 gas)
+      ✓ set new contract address (17047194 gas)
+    sub contracts
+      ✓ can't assign an address that isnt Breeding to breeding (6721975 gas)
+      ✓ can't assign an address that isnt Breeding to breeding 2 (6721975 gas)
+      ✓ can't assign an address that isnt Breeding to breeding 3 (6721975 gas)
+      ✓ can set a valid breeding contract (1072253 gas)
+      ✓ everything still works with new breeding contract (311364 gas)
+    Rescue lost kitties
+      ✓ should fail to rescue kitties that aren't owned by the contract (6721975 gas)
+^[[A      ✓ should fail to rescue kitties if not coo (6721975 gas)
+      ✓ should be able to rescue kitties that are owned by the contract (53028 gas)
+    Auction wrapper
+      ✓ non-CEO should fail to set auction addresses (13443950 gas)
+      ✓ CEO should be able to set auction addresses (62704 gas)
+      ✓ should fail to create sale auction if not cat owner (6721975 gas)
+      ✓ should be able to create sale auction (138732 gas)
+      ✓ should fail to breed if sire is on sale auction (6721975 gas)
+      ✓ should be able to bid on sale auction (109820 gas)
+      ✓ should fail to create siring auction if not cat owner (6721975 gas)
+      ✓ should be able to create siring auction (140388 gas)
+      ✓ should fail to breed if sire is on siring auction (6721975 gas)
+      ✓ should fail to bid on siring auction if matron is in cooldown (6791947 gas)
+      ✓ should be able to bid on siring auction (240623 gas)
+      ✓ should be able to cancel a sale auction (182280 gas)
+      ✓ should be able to cancel a siring auction (183914 gas)
+      ✓ should be able to bid on siring auction with autobirth (239888 gas)
+    Gen0 Auction
+      ✓ should fail to create gen0 auction if not coo (6721975 gas)
+      ✓ should start aveSalePrice at 0
+      ✓ should be able to create gen0 auction (287616 gas)
+      ✓ avePrice should be unchanged (no sale yet)
+      ✓ should be able to bid on gen0 auction (78082 gas)
+      ✓ avePrice should be about 1/5 starting price after first sale
+      ✓ avePrice should not be influenced by regular auctions (187815 gas)
+      ✓ next 3 gen0 auctions should be startingPrice (988663 gas)
+      ✓ gen0 auctions should compute price based on previous sales (272412 gas)
+    auction withdrawals
+      ✓ should fail to withdraw as non-coo
+      ✓ should be able to withdraw as coo (61335 gas)
+      ✓ should fail to withdraw via core as non-COO
+      ✓ should be able to withdraw via core as COO (45404 gas)
+Gas spent on test suite: 44334524000000879275
+
+/Users/primary/Projects/cryptokitties-bounty/node_modules/truffle/build/cli.bundled.js:320098
+        throw reason;
+        ^
+
+Error: Content needs to be a primitive, got: function
+    at Cell.setOptions (/Users/primary/Projects/cryptokitties-bounty/node_modules/cli-table2/src/cell.js:27:11)
+    at new Cell (/Users/primary/Projects/cryptokitties-bounty/node_modules/cli-table2/src/cell.js:12:8)
+    at /Users/primary/Projects/cryptokitties-bounty/node_modules/cli-table2/src/layout-manager.js:157:16
+    at arrayMap (/Users/primary/Projects/cryptokitties-bounty/node_modules/cli-table2/node_modules/lodash/index.js:1406:25)
+    at Function.map (/Users/primary/Projects/cryptokitties-bounty/node_modules/cli-table2/node_modules/lodash/index.js:6710:14)
+    at /Users/primary/Projects/cryptokitties-bounty/node_modules/cli-table2/src/layout-manager.js:156:16
+    at /Users/primary/Projects/cryptokitties-bounty/node_modules/cli-table2/node_modules/lodash/index.js:2275:27
+    at /Users/primary/Projects/cryptokitties-bounty/node_modules/cli-table2/node_modules/lodash/index.js:3049:15
+    at baseMap (/Users/primary/Projects/cryptokitties-bounty/node_modules/cli-table2/node_modules/lodash/index.js:2274:7)
+    at Function.map (/Users/primary/Projects/cryptokitties-bounty/node_modules/cli-table2/node_modules/lodash/index.js:6710:14)
+npm ERR! Test failed.  See above for more details.
