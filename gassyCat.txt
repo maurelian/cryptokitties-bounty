@@ -1,3 +1,7 @@
+// I ran tests from https://github.com/axiomzen/cryptokitties-bounty
+// this is the output
+// it eventually errored out after _30 minutes_. Something either in Truffle or eth-gas-reporter
+
 $ npm test
 
 > cryptokitty@1.0.0 test /Users/primary/Projects/cryptokitties-bounty
